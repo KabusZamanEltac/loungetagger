@@ -17,7 +17,7 @@ client = TelegramClient('client', api_id, api_hash).start(bot_token=bot_token)
 
 anlik_calisan = []
 
-@client.on(events.NewMessage(pattern='^(?i)/cancel'))
+@client.on(events.NewMessage(pattern='^(?i)/Dur'))
 async def cancel(event):
   global anlik_calisan
   anlik_calisan.remove(event.chat_id)
@@ -25,28 +25,28 @@ async def cancel(event):
 
 @client.on(events.NewMessage(pattern="^/start$"))
 async def start(event):
-  await event.reply("**SohbetHanemTaggerBot**, Grup veya kanaldaki neredeyse tüm üyelerden bahsedebilirim ★\nDaha fazla bilgi için **/help**'i tıklayın.",
+  await event.reply("**Dennizz_bot**, Grup veya kanaldaki neredeyse tüm üyelerden bahsedebilirim ★\nDaha fazla bilgi için **/help**'i tıklayın.",
                     buttons=(
-                      [Button.url('🌟 Beni Bir Gruba Ekle', '?startgroup=a'),
-                      Button.url('📣 Kanal', 'https://t.me/anteplipanel'),
-                      Button.url('🚀 Sahibim', 'https://t.me/anteplibebekk')]
+                      [Button.url('🌟 Məni Grupa Apar', 'https://t.me/Dennizz_bot?startgroup=a'),
+                      Button.url('📣 𝐒ə𝐧𝐝ə 𝐐𝐨ş𝐮𝐥 𝐁𝐢𝐳ə', 'https://t.me/WerabliAnlar'),
+                      Button.url('🚀 Sahibim', 'https://t.me/Demon_NightT')]
                     ),
                     link_preview=False
                    )
-@client.on(events.NewMessage(pattern="^/help$"))
+@client.on(events.NewMessage(pattern="^/info$"))
 async def help(event):
-  helptext = "**SohbetHanemTaggerBot'un Yardım Menüsü**\n\nKomut: /all \n  Bu komutu, başkalarına bahsetmek istediğiniz metinle birlikte kullanabilirsiniz. \n`Örnek: /all Günaydın!`  \nBu komutu yanıt olarak kullanabilirsiniz. herhangi bir mesaj Bot, yanıtlanan iletiye kullanıcıları etiketleyecek"
+  helptext = "**Dennizz_bot'un Kömək Menüsü**\n\nMenyu: /gel \n  Bu komutu, başqalarını istediyiniz mesajla birlikde işlədə bilərsiniz. \n`Örnek: /gel Günaydın!`  \nBu menyunu yanıt olarak kullanabilirsiniz. herhangi bir mesaj Bot, yanıtlanan iletiye kullanıcıları etiketleyecek"
   await event.reply(helptext,
                     buttons=(
-                      [Button.url('🌟 Beni Bir Gruba Ekle', 'http://t.me/SohbetHanemTaggerBot?startgroup=a'),
-                       Button.url('📣 Kanal', 'https://t.me/anteplipanel'),
+                      [Button.url('🌟 Məni Grupa Apar', 'http://t.me/Dennizz_bot?startgroup=a'),
+                       Button.url('📣 𝐒ə𝐧𝐝ə 𝐐𝐨ş𝐮𝐥 𝐁𝐢𝐳ə', 'https://t.me/WerabliAnlar'),
                       Button.url('🚀 Sahibim', 'https://t.me/anteplibebekk')]
                     ),
                     link_preview=False
                    )
 
 
-@client.on(events.NewMessage(pattern="^/all ?(.*)"))
+@client.on(events.NewMessage(pattern="^/gel ?(.*)"))
 async def mentionall(event):
   global anlik_calisan
   if event.is_private:
@@ -56,7 +56,7 @@ async def mentionall(event):
   async for admin in client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
   if not event.sender_id in admins:
-    return await event.respond("__Yalnızca yöneticiler hepsinden bahsedebilir!__")
+    return await event.respond("__Yalnızca yöneticiler hamını tag edə bilər!__")
   
   if event.pattern_match.group(1):
     mode = "text_on_cmd"
@@ -69,7 +69,7 @@ async def mentionall(event):
   elif event.pattern_match.group(1) and event.reply_to_msg_id:
     return await event.respond("__Bana bir argüman ver!__")
   else:
-    return await event.respond("__Bir mesajı yanıtlayın veya başkalarından bahsetmem için bana bir metin verin!__")
+    return await event.respond("__Bir Mesaja Yanit Ver ve ya Sebeb Yaz!__")
     
   if mode == "text_on_cmd":
     anlik_calisan.append(event.chat_id)
@@ -79,7 +79,7 @@ async def mentionall(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}) "
       if event.chat_id not in anlik_calisan:
-        await event.respond("İşlem Başarılı Bir Şekilde Durduruldu ❌")
+        await event.respond("Durdum🌹 @WerabliAnlar ❌")
         return
       if usrnum == 5:
         await client.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -97,7 +97,7 @@ async def mentionall(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}) "
       if event.chat_id not in anlik_calisan:
-        await event.respond("İşlem Başarılı Bir Şekilde Durduruldu ❌")
+        await event.respond("Durdum🌹 @WerabliAnlar ❌")
         return
       if usrnum == 5:
         await client.send_message(event.chat_id, usrtxt, reply_to=msg)
@@ -106,5 +106,5 @@ async def mentionall(event):
         usrtxt = ""
 
 
-print(">> Bot çalıyor merak etme 🚀 @loungesupport bilgi alabilirsin <<")
+print(">> Bot isleyir narahat olma 🚀 @Demon_NightT melumat ala bilirsən <<")
 client.run_until_disconnected()
